@@ -37,7 +37,7 @@ class Tracker:
 
     """
 
-    def __init__(self, metric, max_iou_distance=0.7, max_age=60, n_init=3):
+    def __init__(self, metric, max_iou_distance=0.45, max_age=60, n_init=3):
         self.metric = metric
         self.max_iou_distance = max_iou_distance
         self.max_age = max_age
@@ -46,7 +46,10 @@ class Tracker:
         self.kf = kalman_filter.KalmanFilter()
         self.tracks = []
         self._next_id = 1
-
+        
+       
+                    
+        
     def predict(self):
         """Propagate track state distributions one time step forward.
 
@@ -65,8 +68,7 @@ class Tracker:
 
         """
         # Run matching cascade.
-        matches, unmatched_tracks, unmatched_detections = \
-            self._match(detections)
+        matches, unmatched_tracks, unmatched_detections = self._match(detections)
 
         # Update track set.
         for track_idx, detection_idx in matches:
@@ -89,7 +91,7 @@ class Tracker:
             track.features = []
         self.metric.partial_fit(
             np.asarray(features), np.asarray(targets), active_targets)
-
+        
     def _match(self, detections):
 
         def gated_metric(tracks, dets, track_indices, detection_indices):
@@ -137,3 +139,5 @@ class Tracker:
             mean, covariance, self._next_id, self.n_init, self.max_age,
             detection.feature, class_name))
         self._next_id += 1
+        if self._next_id > 13:
+            self._next_id = 404

@@ -4,7 +4,7 @@ import errno
 import argparse
 import numpy as np
 import cv2
-import tensorflow.compat.v1 as tf
+import tensorflow._api.v2.compat.v1 as tf
 
 #tf.compat.v1.disable_eager_execution()
 

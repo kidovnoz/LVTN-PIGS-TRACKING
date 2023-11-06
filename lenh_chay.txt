@@ -1,0 +1,2 @@
+ python object_tracker.py --weights ./checkpoints/yolov4-tiny-416 --model yolov4 --video ./data/video/penc.mp4
+ --output ./outputs/tiny.avi --tiny
